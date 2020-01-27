@@ -10,6 +10,10 @@ $(document).ready(function(){
     var p_id_producto=0;
     function hola(){
         alert("yuris");
+        alert("asfzdxfgds");
+        alert("asfzdxfgds");
+                
+               
     }
     
     //funcion inicial    
