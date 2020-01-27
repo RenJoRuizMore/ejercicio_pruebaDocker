@@ -8,6 +8,9 @@ $(document).ready(function(){
     
     // variables    
     var p_id_producto=0;
+    function hola(){
+        alert("yuris");
+    }
     
     //funcion inicial    
     load();
