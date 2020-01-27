@@ -1,0 +1,30 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    
+    <!-- Configuration for the default package. -->
+    <package name="default" extends="struts-default">
+        
+        <action name="loguear" class="Acciongenerico.AccionLoguear" method="Logueo">
+            <result name="administrador">/paginas/administrador/home.jsp </result>
+            <result name="vendedor">/paginas/vendedor/home.jsp </result>
+            <result name="cajero">/paginas/cajero/home.jsp </result>
+            <result name="almacenero">/paginas/almacenero/home.jsp </result>
+            <result name="noencontro">/error.jsp</result>
+            <result name="error">/error.jsp</result>
+        </action>
+        
+        <!--Enlaces index -->
+        <action name="ir_index" class="Acciongenerico.AccionLoguear" method="ruteador">
+            <result name="success">/index.jsp </result>            
+        </action>
+               
+    </package>
+    
+    <include file="Controller_administrador/administrador.xml"/> 
+    <include file="Controller_almacenero/almacenero.xml"/> 
+    <include file="Controller_vendedor/vendedor.xml"/> 
+    <include file="Controller_cajero/cajero.xml"/> 
+</struts>

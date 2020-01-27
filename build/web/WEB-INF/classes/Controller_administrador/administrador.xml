@@ -1,0 +1,154 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <constant name="struts.devMode" value="true" />
+    <!-- package de ruta-->
+    <package name="administrador_controller" namespace="/"  extends="struts-default">
+        <!--  menejar la ruta de adminsitrar usuarios-->
+        <!--Enlaces Menu administrador -->
+        <action name="ir_compras" class="Acciongenerico.AccionLoguear" method="ruteador">
+            <result name="success">/paginas/administrador/v_acompras.jsp </result>            
+        </action>
+        <action name="ir_ventas" class="Acciongenerico.AccionLoguear" method="ruteador">
+            <result name="success">/paginas/administrador/home.jsp </result>            
+        </action>
+        <action name="ir_productos_vendidos" class="Acciongenerico.AccionLoguear" method="ruteador">
+            <result name="success">/paginas/administrador/v_aproductosvendidos.jsp </result>            
+        </action>
+        <action name="ir_servicios" class="Acciongenerico.AccionLoguear" method="ruteador">
+            <result name="success">/paginas/administrador/v_aservicios.jsp </result>            
+        </action>
+        <action name="ir_usuarios" class="Acciongenerico.AccionLoguear" method="ruteador">
+            <result name="success">/paginas/administrador/v_ausuarios.jsp </result>            
+        </action>
+    </package>
+    
+    <!-- package de crud-->
+    <package name="json" namespace="/"  extends="json-default">
+        <!-- regsitrar usaurios-->
+        <action name="insertar_usuario" class="Accion.administrador.Admin" method="insertar" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        <!-- actualizar usaurios-->
+        <action name="actualizar_usuario" class="Accion.administrador.Admin" method="actualizar" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        <!--  tipo de usuario-->
+        <action name="fill_combo_rol" class="Accion.administrador.Admin" method="cargar_roles" >
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        <!-- listar los usaurios  -->
+        <action name="busqueda" class="Accion.administrador.Admin" method="busqueda_filtrada" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        
+        <!-- listar servicio  -->
+        <action name="busqueda_servicio" class="Accion.administrador.Admin" method="lista_filtrada_servicio" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>  
+        <!-- actualizar servicios -->
+        <action name="insertar_servicio" class="Accion.administrador.Admin" method="insertar_servicio" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        <!-- actualizar servicios -->
+        <action name="actualizar_servicio" class="Accion.administrador.Admin" method="actualizar_servicio" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        
+        
+        <!-- REPORTES COMPRAS MENU-->
+        <!-- cargar proveedores -->
+        <action name="fill_combo_provee" class="Accion.administrador.Admin" method="cargar_proveedores" >
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        <!-- listar compras  -->
+        <action name="busqueda_compras" class="Accion.administrador.Admin" method="busqueda_compras" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action> 
+        
+        <!-- REPORTES VENTAS MENU-->
+        <!-- cargar vendedores -->
+        <action name="fill_combo_vendedores" class="Accion.administrador.Admin" method="cargar_vendedores" >
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        <!-- listar ventas  -->
+        <action name="busqueda_ventass" class="Accion.administrador.Admin" method="busqueda_ventas" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action> 
+        
+        <!-- REPORTES PRODUCTOS VENDIDOS MENU-->
+        <!-- cargar productos -->
+        <action name="fill_combo_productos" class="Accion.administrador.Admin" method="cargar_productos" >
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        <!-- listar ventas Anio -->
+        <action name="busqueda_provendidos" class="Accion.administrador.Admin" method="busqueda_provendidos" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action> 
+        
+    </package>
+    
+    <!-- rerpotes -->
+    
+    <!--  package de los reportes  -->
+    <package name="paqreportesadmins"  extends="struts-default" namespace="/" >
+        
+        <result-types>
+            <result-type name="jasper" class="org.apache.struts2.views.jasperreports.JasperReportsResult"  default="false" />
+        </result-types> 
+        
+        
+         <!-- reporte de ventas  -->
+        <action name="reporte_ventaspdf" class="Controller_Report.RVentasAdmin" method="execute">
+          <result name="SUCCESS" type="stream">
+                  <param name="contentType">application/octet-stream</param>
+                  <param name="inputName">fileInputStream</param>
+                  <param name="contentDisposition">attachment;filename="${pdfName}.pdf"</param>
+                  <param name="bufferSize">1024</param>
+              </result>  
+        </action> 
+        
+         <!-- reporte de compras  -->
+        <action name="reporte_compraspdf" class="Controller_Report.RComprasAdmin" method="execute">
+          <result name="SUCCESS" type="stream">
+                  <param name="contentType">application/octet-stream</param>
+                  <param name="inputName">fileInputStream</param>
+                  <param name="contentDisposition">attachment;filename="${pdfName}.pdf"</param>
+                  <param name="bufferSize">1024</param>
+              </result>  
+        </action> 
+        
+          <!-- producto vendidos -->
+        <action name="reporte_producto_vendidopdf" class="Controller_Report.RProductVendidosAdmin" method="execute">
+          <result name="SUCCESS" type="stream">
+                  <param name="contentType">application/octet-stream</param>
+                  <param name="inputName">fileInputStream</param>
+                  <param name="contentDisposition">attachment;filename="${pdfName}.pdf"</param>
+                  <param name="bufferSize">1024</param>
+              </result>  
+        </action> 
+        
+   </package>     
+    
+</struts>

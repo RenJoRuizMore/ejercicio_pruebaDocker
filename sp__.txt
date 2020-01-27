@@ -1,0 +1,22 @@
+-- --------------------------------------------------------------------------------
+-- Routine DDL
+-- Note: comments before and after the routine body will not be stored by the server
+-- --------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrar_usuario`(in nombres varchar(200),
+in documento varchar(11), in direccion varchar(200),in celular varchar(9),in email varchar(200),
+in id_tipouser int, in login_e varchar(20), in password_e varchar(20))
+BEGIN
+declare id_persona_d int(11); 
+
+	insert into persona(tipo_persona,nombre_persona,documento_persona,direccion_persona,celular_persona,email_persona)
+    values(0,nombres,documento,direccion,celular,email);
+    
+	set id_persona_d=(select id_persona from persona order by id_persona desc limit 1);
+ 
+	insert into usuario(id_persona,id_tipousuario,usuario_usuario,clave_usuario,estado_usuario)
+	values(id_persona_d,id_tipouser,login_e, password_e, 1);
+        
+ 
+END

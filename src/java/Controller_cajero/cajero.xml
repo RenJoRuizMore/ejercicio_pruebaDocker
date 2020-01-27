@@ -1,0 +1,195 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- Author: Rene Jose -->
+ 
+<struts>
+    <!-- Add your configuration elements here -->
+     <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <constant name="struts.devMode" value="true" />
+    <!-- package de crud-->
+    <package name="cajero_controller" namespace="/"  extends="struts-default">
+        <!--  menejar la ruta de -->
+        
+        <!--Enlaces Menu Cajero -->
+        <action name="ir_abrircaja" class="Acciongenerico.AccionLoguear" method="ruteador">
+            <result name="success">/paginas/cajero/home.jsp </result>            
+        </action>
+        <action name="ir_cerrarcaja" class="Acciongenerico.AccionLoguear" method="ruteador">
+            <result name="success">/paginas/cajero/v_ccerrarcaja.jsp </result>            
+        </action>
+        <action name="ir_ingresar_ventas" class="Acciongenerico.AccionLoguear" method="ruteador">
+            <result name="success">/paginas/cajero/v_cingresarventas.jsp </result>            
+        </action>
+        <action name="ir_reportes_vendedores" class="Acciongenerico.AccionLoguear" method="ruteador">
+            <result name="success">/paginas/cajero/v_creportesvendedores.jsp </result>            
+        </action>
+        
+         <action name="ir_productos_vendedores_caja" class="Acciongenerico.AccionLoguear" method="ruteador">
+            <result name="success">/paginas/cajero/v_creporteproductos.jsp </result>            
+        </action>
+        
+    </package>
+    
+    <package name="json_cajero" namespace="/"  extends="json-default">
+        
+     <action name="listar_numpedido_autocomplt" class="Accion.cajero.Accion_Cajero" method = "lista_busqueda_num_pedido" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+     </action> 
+    
+     <action name="listar_datos_pedidos" class="Accion.cajero.Accion_Cajero"  method = "lista_datos">           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+     </action>
+     
+     <!-- realizacion de venta -->
+     <action name="registrar_venta" class="Accion.cajero.Accion_Cajero"  method = "enviar_venta">           
+            <result type="json" name="mensaje"></result>
+     </action>
+      <!-- listar vendedores -->
+     <action name="listar_vendedores_venta" class="Accion.cajero.Accion_Cajero"  method = "lista_vendedores_venta">           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+     </action>
+     
+      <!-- registrar apertura de caja  -->
+     <action name="aperturar_caja" class="Accion.cajero.Accion_Cajero"  method = "aperturar_caja">           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+     </action>
+     
+     <!-- verificar apertura de caja  -->
+     <action name="verificar_aperturar_caja" class="Accion.cajero.Accion_Cajero"  method = "verificar_aperturar_caja">           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+     </action>
+     
+    <!-- registrar cerrar de caja  -->
+     <action name="cerrar_caja" class="Accion.cajero.Accion_Cajero"  method = "cerrar_caja">           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+     </action>
+     
+     <!-- REPORTES PRODUCTOS VENDIDOS MENU-->
+        <!-- cargar productos -->
+        <action name="fill_combo_productos_c" class="Accion.cajero.Accion_Cajero" method="cargar_productos" >
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+      <!-- listar ventas Anio -->
+        <action name="busqueda_provendidos_c" class="Accion.cajero.Accion_Cajero" method="busqueda_provendidos" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+     
+     
+     
+    </package> 
+     
+     
+       <!--  package de los reportes  -->
+    <package name="reportesVenta"  extends="struts-default" namespace="/" >
+        
+        <result-types>
+            <result-type name="jasper" class="org.apache.struts2.views.jasperreports.JasperReportsResult"  default="false" />
+        </result-types> 
+    
+      <!-- reportes -->
+     <action name="pdf_ventadiaria" class="Controller_Report.RVendedor_Reporte" method="execute">           
+                 <result name="SUCCESS" type="stream">
+                  <param name="contentType">application/octet-stream</param>
+                  <param name="inputName">fileInputStream</param>
+                  <param name="contentDisposition">attachment;filename="${pdfName}.pdf"</param>
+                  <param name="bufferSize">1024</param>
+              </result> 
+     </action>
+     
+     <!-- reportes -->
+     <action name="pdf_ventaproducto" class="Controller_Report.RVendedor_ReporteProducto" method="execute">           
+                 <result name="SUCCESS" type="stream">
+                  <param name="contentType">application/octet-stream</param>
+                  <param name="inputName">fileInputStream</param>
+                  <param name="contentDisposition">attachment;filename="${pdfName}.pdf"</param>
+                  <param name="bufferSize">1024</param>
+              </result> 
+     </action>
+     
+     <!-- impirmir boleta -->
+     
+       <action name="imprimir_venta" class="Controller_Report.RImprimirBoleta" method="execute_hola">
+           
+            <result name="success" type="jasper">
+                <param name="location">/reportes/${archivo_jasper}</param>
+                <param name="dataSource">lista_diario</param>
+                <param name="format">${formato}</param>
+                <param name="contentType">${tipo_contenido}</param>
+                <param name="contentDisposition">nombre_archivo=${nombre_archivo}</param>
+                <param name="reportParameters">Parametros_Reporte</param>
+                <param name="exportParameters">exportParameters</param> 
+                <!--<param name="imageServletUrl">/imageGet?imageName=${ruta}</param> -->
+            </result>
+        </action> 
+        
+       <!-- impirmir factura -->
+     
+       <action name="imprimir_factura" class="Controller_Report.RImprimirFactura" method="execute_hola">
+            <result name="success" type="jasper">
+                <param name="location">/reportes/${archivo_jasper}</param>
+                <param name="dataSource">lista_diario</param>
+                <param name="format">${formato}</param>
+                <param name="contentType">${tipo_contenido}</param>
+                <param name="contentDisposition">nombre_archivo=${nombre_archivo}</param>
+                <param name="reportParameters">Parametros_Reporte</param>
+                <param name="exportParameters">exportParameters</param> 
+            </result>
+        </action> 
+          <!-- impirmir efectivo -->
+     
+       <action name="pdf_ventaefectivo" class="Controller_Report.ReporteVentaEfectivo" method="execute_hola">
+            <result name="success" type="jasper">
+                <param name="location">/reportes/${archivo_jasper}</param>
+                <param name="dataSource">lista_diario</param>
+                <param name="format">${formato}</param>
+                <param name="contentType">${tipo_contenido}</param>
+                <param name="contentDisposition">nombre_archivo=${nombre_archivo}</param>
+                <param name="reportParameters">Parametros_Reporte</param>
+                <param name="exportParameters">exportParameters</param> 
+            </result>
+        </action> 
+            <!-- impirmir tarjeta -->
+     
+       <action name="pdf_ventatarjeta" class="Controller_Report.RVendidos_PorTarjeta" method="execute_hola">
+            <result name="success" type="jasper">
+                <param name="location">/reportes/${archivo_jasper}</param>
+                <param name="dataSource">lista_diario</param>
+                <param name="format">${formato}</param>
+                <param name="contentType">${tipo_contenido}</param>
+                <param name="contentDisposition">nombre_archivo=${nombre_archivo}</param>
+                <param name="reportParameters">Parametros_Reporte</param>
+                <param name="exportParameters">exportParameters</param> 
+            </result>
+        </action> 
+     
+       <!-- producto vendidos -->
+        <action name="reporte_producto_vendidopdf_c" class="Controller_Report.RProductVendidosAdmin" method="execute">
+          <result name="SUCCESS" type="stream">
+                  <param name="contentType">application/octet-stream</param>
+                  <param name="inputName">fileInputStream</param>
+                  <param name="contentDisposition">attachment;filename="${pdfName}.pdf"</param>
+                  <param name="bufferSize">1024</param>
+              </result>  
+        </action> 
+     
+     
+    </package>
+</struts>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+        <parameter name="ruta" class="java.lang.String" />
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="numero_pedido" class="java.lang.String"/>
+	<field name="pago_con" class="java.lang.Double"/>
+	<field name="igv_pedido" class="java.lang.Double"/>
+	<field name="vuelto" class="java.lang.Double"/>
+	<field name="monto_total_pedido" class="java.lang.Double"/>
+	<field name="estado_pedido" class="java.lang.Integer"/>
+	<variable name="suma" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{monto_total_pedido}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="97" splitType="Stretch">
+			<staticText>
+				<reportElement x="184" y="0" width="234" height="62"/>
+				<textElement verticalAlignment="Middle">
+					<font size="36" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Venta del Dia ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="62" width="234" height="25"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Lista de pedidos vendidos en el dia ]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="184" height="97"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{ruta} +"/img_report/logo1.jpg"]]></imageExpression>
+			</image>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="431" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="10" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement x="271" y="13" width="61" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Igv]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="28" width="550" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="150" y="13" width="75" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Pago con]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="13" width="88" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Nº Pedido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="398" y="13" width="62" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Vuelto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="492" y="13" width="58" height="15" forecolor="#736343"/>
+				<textElement/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="6" width="115" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{numero_pedido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="139" y="6" width="86" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{pago_con}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="246" y="6" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{igv_pedido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="388" y="6" width="72" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{vuelto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="487" y="6" width="63" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{monto_total_pedido}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="418" y="14" width="58" height="20"/>
+				<textElement>
+					<font fontName="Arial Black" size="14"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="481" y="14" width="69" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{suma}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

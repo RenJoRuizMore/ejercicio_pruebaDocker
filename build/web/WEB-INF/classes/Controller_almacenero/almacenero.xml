@@ -1,0 +1,349 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+
+ 
+<struts>
+    
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <constant name="struts.devMode" value="true" />
+    <!-- package de ruta-->
+    <package name="almacenero_controller" namespace="/"  extends="struts-default">
+        <!--  menejar la ruta de adminsitrar usuarios-->
+        <!--Enlaces Menu Almacenero -->
+        <action name="ir_verificar_stock" class="Acciongenerico.AccionLoguear" method="ruteador">
+            <result name="success">/paginas/almacenero/home.jsp </result>            
+        </action>
+        <action name="ir_factura_compra" class="Acciongenerico.AccionLoguear" method="ruteador">
+            <result name="success">/paginas/almacenero/v_alfacturacompra.jsp </result>            
+        </action>
+        <action name="ir_salidas_almacen" class="Acciongenerico.AccionLoguear" method="ruteador">
+            <result name="success">/paginas/almacenero/v_alsalidasalmacen.jsp </result>            
+        </action>
+        <action name="ir_reportes" class="Acciongenerico.AccionLoguear" method="ruteador">
+            <result name="success">/paginas/almacenero/v_alreporte.jsp </result>            
+        </action>
+        <action name="ir_report" class="Acciongenerico.AccionLoguear" method="ruteador">
+            <result name="success">/reportes/report2.jrxml </result>            
+        </action>
+    </package>
+    
+    <!-- package de crud-->
+    <package name="json_almacen" namespace="/"  extends="json-default">
+        <!-- listar los categoria--> 
+        <action name="busqueda_categoria" class="Accion.almacenero.Almacen" method = "lista_filtrada_categoria" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        <action name="actualizar_categoria" class="Accion.almacenero.Almacen" method="actualizar_categoria" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        <action name="insertar_categoria" class="Accion.almacenero.Almacen" method="insertar_categoria" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        <!-- cargar categorias -->
+        <action name="fill_combo_categoria" class="Accion.almacenero.Almacen" method="cargar_categorias" >
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        
+        <!-- listar los productos--> 
+        <action name="busqueda_producto" class="Accion.almacenero.Almacen" method = "lista_filtrada_producto" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        <action name="insertar_producto" class="Accion.almacenero.Almacen" method="insertar_producto" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        <action name="actualizar_producto" class="Accion.almacenero.Almacen" method="actualizar_producto" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        
+        <!-- listar los stock minimo--> 
+        <action name="busqueda_sm" class="Accion.almacenero.Almacen" method = "lista_stock_minimo" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        <action name="add_del_listcompra" class="Accion.almacenero.Almacen" method="add_del_listacompra" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        
+        <!-- listar lista compra lc--> 
+        <action name="busqueda_lc" class="Accion.almacenero.Almacen" method = "lista_lista_compra" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        
+        <!-- listar pROveedor --> 
+        <action name="busqueda_proveedor" class="Accion.almacenero.Almacen" method = "busqueda_filtrada_proveedor" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        <action name="insertar_proveedor" class="Accion.almacenero.Almacen" method="insertar_proveedor" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        <action name="actualizar_proveedor" class="Accion.almacenero.Almacen" method="actualizar_proveedor" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        
+        <!-- listar FACTURA compra --> 
+        <action name="busqueda_factura" class="Accion.almacenero.Almacen" method = "lista_filtrada_factura" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        
+        <!-- listar SALIDAS --> 
+        <action name="busqueda_salida" class="Accion.almacenero.Almacen" method = "lista_filtrada_salida" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        <!-- obtner numero salida-->
+        <action name="obtener_numsal" class="Accion.almacenero.Almacen" method = "get_numerosalida" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        <!-- listar tmp detalle salida --> 
+        <action name="listar_tmp_detsalida" class="Accion.almacenero.Almacen" method = "listar_detallesalidatmp" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        <!-- adicionar en tmp detalle salida --> 
+        <action name="add_listmp" class="Accion.almacenero.Almacen" method="add_listadetallesalida" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        <!-- eliminar en tmp detalle salida --> 
+        <action name="del_listmp" class="Accion.almacenero.Almacen" method="del_listadetallesalida" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        <action name="edit_listmp" class="Accion.almacenero.Almacen" method="edit_detallesalidatmp" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        
+        
+        <action name="insertar_salida" class="Accion.almacenero.Almacen" method="insertar_salida" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        
+        <!-- listar detallesalida x id --> 
+        <action name="busqueda_detallesalida" class="Accion.almacenero.Almacen" method = "lista_filtrada_detallesalida" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        
+        <action name="eliminar_detallesalida" class="Accion.almacenero.Almacen" method="eliminar_detallesalida" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        
+        <action name="insertar_detallesalida" class="Accion.almacenero.Almacen" method="insertar_detallesalidaxxx" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        
+        <action name="actualizar_salida" class="Accion.almacenero.Almacen" method="actualizar_salida" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        
+        <action name="limpiar_detalletmp" class="Accion.almacenero.Almacen" method="limpiar_detallesalidatmp" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        
+        
+        
+        <!-- listar tmp detalle factura --> 
+        <action name="limpiar_detallefacturatmp" class="Accion.almacenero.Almacen" method="limpiar_detallefacturatmp" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        <action name="listar_tmp_detfactura" class="Accion.almacenero.Almacen" method = "listar_detallefacturatmp" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        <!-- adicionar en tmp detalle FACTURA --> 
+        <action name="add_listmp_detfac" class="Accion.almacenero.Almacen" method="add_listadetallefactura" >
+            <result type="json" name="mensaje"></result>
+        </action>        
+        <action name="del_listmpdetfac" class="Accion.almacenero.Almacen" method="del_listadetallefactura" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        
+        <!-- INSERTAR FACTURA -->
+        <action name="insertar_factura" class="Accion.almacenero.Almacen" method="insertar_facturacompra" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        
+         <!-- listar detalleFACTURA x id --> 
+        <action name="listar_detallefactura" class="Accion.almacenero.Almacen" method = "lista_filtrada_detallefactura" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>               
+        <action name="eliminar_detallefactura" class="Accion.almacenero.Almacen" method="eliminar_detallefactura    " >
+            <result type="json" name="mensaje"></result>
+        </action>
+        <action name="insertar_detallefactura" class="Accion.almacenero.Almacen" method="insertar_detallefactura" >
+            <result type="json" name="mensaje"></result>
+        </action>
+         <action name="actualizar_Factura" class="Accion.almacenero.Almacen" method="actualizar_factura" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        
+        
+         <!-- listar detalleFACTURA x id --> 
+        <action name="listar_produc_autocomplt" class="Accion.almacenero.Almacen" method = "lista_busqueda_producto_autoc" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>  
+        
+    </package>
+   
+   
+    <!--  package de los reportes  -->
+    <package name="defaulttxxx"  extends="struts-default" namespace="/" >
+        
+        <result-types>
+            <result-type name="jasper" class="org.apache.struts2.views.jasperreports.JasperReportsResult"  default="false" />
+        </result-types> 
+        
+        <action name="jasper_print_listcompra" class="Controller_Report.RAlmacen_ProductosAlmacen" method="execute_hola">
+           
+            <result name="success" type="jasper">
+                <param name="location">/reportes/${archivo_jasper}</param>
+                <param name="dataSource">lista_diario</param>
+                <param name="format">${formato}</param>
+                <param name="contentType">${tipo_contenido}</param>
+                <param name="contentDisposition">nombre_archivo=${nombre_archivo}</param>
+                <param name="reportParameters">Parametros_Reporte</param>
+                <param name="exportParameters">exportParameters</param> 
+            </result>
+        </action>   
+        
+        <!-- reporte salida  por dia -->
+        <action name="reporte_pordia" class="Controller_Report.RAlmacen_SalidasDiarias" method="execute_hola">
+           <result name="success" type="jasper">
+                <param name="location">/reportes/${archivo_jasper}</param>
+                <param name="dataSource">lista_diario</param>
+                <param name="format">${formato}</param>
+                <param name="contentType">${tipo_contenido}</param>
+                <param name="contentDisposition">nombre_archivo=${nombre_archivo}</param>
+                <param name="reportParameters">Parametros_Reporte</param>
+                <param name="exportParameters">exportParameters</param> 
+            </result> 
+        </action> 
+        
+        <!-- reporte salida mensual -->
+        
+         <action name="reporte_pormes" class="Controller_Report.RAlmacen_SalidasMes" method="execute">
+              <result name="SUCCESS" type="stream">
+                  <param name="contentType">application/octet-stream</param>
+                  <param name="inputName">fileInputStream</param>
+                  <param name="contentDisposition">attachment;filename="${pdfName}.pdf"</param>
+                  <param name="bufferSize">1024</param>
+              </result> 
+        </action>
+        
+        <!-- salidas por anio -->
+         <action name="reporte_poranio" class="Controller_Report.RAlmacen_SalidasAnio" method="execute">
+              <result name="SUCCESS" type="stream">
+                  <param name="contentType">application/octet-stream</param>
+                  <param name="inputName">fileInputStream</param>
+                  <param name="contentDisposition">attachment;filename="${pdfName}.pdf"</param>
+                  <param name="bufferSize">1024</param>
+              </result> 
+        </action>
+        
+        <!--  salidas por fechas -->
+         <action name="reporte_porfechas" class="Controller_Report.RAlmacen_SalidasFechas" method="execute">
+              <result name="SUCCESS" type="stream">
+                  <param name="contentType">application/octet-stream</param>
+                  <param name="inputName">fileInputStream</param>
+                  <param name="contentDisposition">attachment;filename="${pdfName}.pdf"</param>
+                  <param name="bufferSize">1024</param>
+              </result> 
+        </action>
+         <!--   por facturas de compras  diarias  -->
+        <action name="reportefactura_pordia" class="Controller_Report.RAlmacen_FaturaComprasDiarias" method="execute">
+          <result name="SUCCESS" type="stream">
+                  <param name="contentType">application/octet-stream</param>
+                  <param name="inputName">fileInputStream</param>
+                  <param name="contentDisposition">attachment;filename="${pdfName}.pdf"</param>
+                  <param name="bufferSize">1024</param>
+              </result>  
+        </action> 
+        
+        
+         <!--   por facturas de compras  por mes  -->
+        <action name="reportefactura_pormes" class="Controller_Report.RAlmacen_FaturaComprasMes" method="execute">
+          <result name="SUCCESS" type="stream">
+                  <param name="contentType">application/octet-stream</param>
+                  <param name="inputName">fileInputStream</param>
+                  <param name="contentDisposition">attachment;filename="${pdfName}.pdf"</param>
+                  <param name="bufferSize">1024</param>
+              </result>  
+        </action>
+        
+           <!--   por facturas de compras  por anio  -->
+        <action name="reportefactura_poranio" class="Controller_Report.RAlmacen_FaturaComprasAnio" method="execute">
+          <result name="SUCCESS" type="stream">
+                  <param name="contentType">application/octet-stream</param>
+                  <param name="inputName">fileInputStream</param>
+                  <param name="contentDisposition">attachment;filename="${pdfName}.pdf"</param>
+                  <param name="bufferSize">1024</param>
+              </result>  
+        </action>
+        
+         <!--   por facturas de compras  por fechas -->
+        <action name="reportefactura_porfechas" class="Controller_Report.RAlmacen_FaturaComprasFechas" method="execute">
+          <result name="SUCCESS" type="stream">
+                  <param name="contentType">application/octet-stream</param>
+                  <param name="inputName">fileInputStream</param>
+                  <param name="contentDisposition">attachment;filename="${pdfName}.pdf"</param>
+                  <param name="bufferSize">1024</param>
+              </result>  
+        </action>
+        
+          <!--   reporte de productos  -->
+        <action name="reporteproductos" class="Controller_Report.RAlmacen_Productosotal" method="execute">
+          <result name="SUCCESS" type="stream">
+                  <param name="contentType">application/octet-stream</param>
+                  <param name="inputName">fileInputStream</param>
+                  <param name="contentDisposition">attachment;filename="${pdfName}.pdf"</param>
+                  <param name="bufferSize">1024</param>
+              </result>  
+        </action> 
+        
+           <!--   reporte de mostrador  -->
+        <action name="reportemostrador" class="Controller_Report.RAlmacen_ProductoMostrador" method="execute">
+          <result name="SUCCESS" type="stream">
+                  <param name="contentType">application/octet-stream</param>
+                  <param name="inputName">fileInputStream</param>
+                  <param name="contentDisposition">attachment;filename="${pdfName}.pdf"</param>
+                  <param name="bufferSize">1024</param>
+              </result>  
+        </action> 
+        
+          <!-- rehomeporte para iprimir lista   -->
+        <action name="imprimir_listaReport" class="Controller_Report.RImprimirListaCompra" method="execute">
+          <result name="SUCCESS" type="stream">
+                  <param name="contentType">application/octet-stream</param>
+                  <param name="inputName">fileInputStream</param>
+                  <param name="contentDisposition">attachment;filename="${pdfName}.pdf"</param>
+                  <param name="bufferSize">1024</param>
+              </result>  
+        </action> 
+        
+        
+    </package>
+   
+</struts>

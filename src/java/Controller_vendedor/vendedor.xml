@@ -1,0 +1,113 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+
+ 
+<struts>
+    
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <constant name="struts.devMode" value="true" />
+    <!-- package de ruta-->
+    <package name="vendedor_controller" namespace="/"  extends="struts-default">
+        <!--  menejar la ruta de -->
+        <!--Enlaces Menu Vendedor -->
+        <action name="ir_venta" class="Acciongenerico.AccionLoguear" method="ruteador">
+            <result name="success">/paginas/vendedor/home.jsp </result>            
+        </action>
+        <action name="ir_reporteventa" class="Acciongenerico.AccionLoguear" method="ruteador">
+            <result name="success">/paginas/vendedor/v_vreporteventas.jsp </result>            
+        </action>
+        
+    </package>
+    
+    <!-- package de crud-->
+    <package name="json_vendedor" namespace="/"  extends="json-default">
+        <!-- listar los categoria--> 
+        <action name="listar_clienre_autocomplt" class="Accion.vendedor.venta" method = "lista_busqueda_cliente" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        <action name="actualizar_cliente" class="Accion.vendedor.venta" method="actualizar_cliente" >
+            <result type="json" name="mensaje"></result>
+        </action><!----> 
+        <action name="insertar_cliente" class="Accion.vendedor.venta" method="insertar_cliente" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        <!-- cargar categorias 
+        <action name="fill_combo_categoria" class="Accion.vendedor.venta" method="cargar_categorias" >
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>-->
+        
+        <!-- obtener el ultimo id_cliente-->
+        <action name="obtener_idcliente" class="Accion.vendedor.venta" method = "get_idclientelast" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        
+        <!-- listar los tmp--> 
+        <action name="listar_tmp" class="Accion.vendedor.venta" method = "lista_filtrada_tmp" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        <action name="insertar_temp" class="Accion.vendedor.venta" method="insertar_temp" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        <action name="del_temp" class="Accion.vendedor.venta" method="eliminar_temp" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        <action name="actualizar_tmp" class="Accion.vendedor.venta" method="actualizar_tmp" >
+            <result type="json" name="mensaje"></result>
+        </action>
+        
+        <!-- obtener el ultimo numero pedido -->
+        <action name="obtener_numero_pedido_last" class="Accion.vendedor.venta" method = "get_numeropedido" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        
+         <!-- opara enviar al cajero la venta -->
+        <action name="enviar_a_caja_vender" class="Accion.vendedor.venta" method = "send_caja_venta" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        
+        
+         <!-- obtener lista de reporte de ventas -->
+        <action name="listar_ventas_report" class="Accion.vendedor.venta" method = "listar_ventas_report" >           
+            <result type="json">
+                <param name="root">datos_json</param>
+            </result>
+        </action>
+        
+        
+    </package>
+    
+      <!--  package de los reportes  -->
+    <package name="defaul_report_ventaaa"  extends="struts-default" namespace="/" >
+        
+        <result-types>
+            <result-type name="jasper" class="org.apache.struts2.views.jasperreports.JasperReportsResult"  default="false" />
+        </result-types>
+        <!--  salidas por fechas -->
+         <action name="imprimir_lista_venta" class="Controller_Report.RImprimir_ListaVenta" method="execute">
+              <result name="SUCCESS" type="stream">
+                  <param name="contentType">application/octet-stream</param>
+                  <param name="inputName">fileInputStream</param>
+                  <param name="contentDisposition">attachment;filename="${pdfName}.pdf"</param>
+                  <param name="bufferSize">1024</param>
+              </result> 
+        </action>
+        
+        
+    </package>    
+    
+   
+</struts>
