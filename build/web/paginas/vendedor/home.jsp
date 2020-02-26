@@ -16,6 +16,8 @@
         
         <link rel="stylesheet" type="text/css" href="./css/jquery-ui.css">
         <script src="./js/jquery-ui.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+          <script type="text/javascript" src="./funciones_js/vendedor/JS_angular_Venta.js"> </script>
         <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>-->
         
@@ -35,9 +37,9 @@
             
         </style>
 </head>
-<body class="inner_page innerpage">
+<body class="inner_page innerpage" ng-app="m_venta">
     
-    <div class="bg_parallax" id="inb">
+    <div class="bg_parallax" id="inb" >
         
         <!-- SideBar -->
 	<%@ include file="../plantillas/vendedor/menu.jsp" %> 
@@ -58,7 +60,7 @@
                         </div>
                     </div>
                 </div> 
-                <div class="row">
+                 <div class="row" ng-controller="ctrl_venta">
                 <!--content-->
                     <div class="col-md-12 basic"> 
                         <div class="">
@@ -206,11 +208,18 @@
                                     </tfoot>
                                 </table>
                             </div>
-                            
+                            <!--
                              <div class="col-md-5 basic text-right">
                                
-                            </div>
-                            <div class="col-md-6 basic text-right">
+                            </div> -->
+                            <div class="col-md-12 basic text-right">
+                                
+                              <button style="margin-right:35px;" type="button" class="btn  btn-lg" ng-click="btn_recuperar_futura_venta()">
+                                              <i class="fa  fa-cart-arrow-down"></i> Recuperar Venta Futura
+                             </button>  
+                              <button style="margin-right:35px;" type="button" class="btn  btn-lg" ng-click="btn_venta_futura_venta()">
+                                              <i class="fa  fa-cart-arrow-down"></i> Almacenar Venta Futura
+                             </button>
                              <button style="margin-right:35px;" type="button" class="btn  btn-lg" id="btn_cancelar_venta">
                                               <i class="fa  fa-cart-arrow-down"></i> Cancelar Venta
                              </button>

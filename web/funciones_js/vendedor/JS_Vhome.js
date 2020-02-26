@@ -357,8 +357,13 @@ $(document).ready(function () {
             total = total + importe;
 
             $('#contenido_tmp_detfactura').append('<tr class="fila_pro_tmpdetfac" id="' + k + '"> ' +
-                    '<td>' + (k + 1) + '</td> <td>' + cod + '</td> <td>' + descripcion + '</td>' +
-                    '<td style="text-align:right;" > <a  class="btn btn-primary edit_tmp" id=' + k + ' >' + cant + '</a></td> ' + '<td style="text-align:right;" >' + getAddZerosToRight(precio) + '</td> ' + '<td style="text-align:right;" >' + getAddZerosToRight(importe) + '</td> ' +
+                    '<td  >' + (k + 1) +
+                    '</td>\n\
+                     <td >' + cod + '</td> \n\
+                     <td >' + descripcion + '</td>' +
+                    '<td style="text-align:right;" > <a  class="btn btn-primary edit_tmp" id=' + k + ' >' + cant + '</a></td> ' 
+                    + '<td style="text-align:right;" >' + getAddZerosToRight(precio) + '</td> ' + 
+                    '<td style="text-align:right;" >' + getAddZerosToRight(importe) + '</td> ' +
                     '<td><a  class="btn btn-danger btn-xs remover_tmp" id=' + k + '  ><i class="fa  fa-remove"></i></a></td>' +
                     '</tr>'
                     );//'<td><a  class="btn btn-md btn-primary btn_eliminar" id='+k+' ><i class="fa fa-remove"></i></a></td>' +                 

@@ -81,7 +81,7 @@
         
         <!-- REPORTES VENTAS MENU-->
         <!-- cargar vendedores -->
-        <action name="fill_combo_vendedores" class="Accion.administrador.Admin" method="cargar_vendedores" >
+        <action name="fill_combo_vendedores" class="Accion.administrador.Admin" method="cargar_vendedores">
             <result type="json">
                 <param name="root">datos_json</param>
             </result>

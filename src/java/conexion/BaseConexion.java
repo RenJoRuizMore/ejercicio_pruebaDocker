@@ -16,18 +16,17 @@ public class BaseConexion {
     private static Connection cns = null;
     private static Statement st = null;
     private static PreparedStatement ps = null; 
-    private static CallableStatement sp = null; 
-    
+    private static CallableStatement sp = null;
     public static final int CERRAR_TODO = 1;
     public static final int CERRAR_STATEMENT = 2;
     public static final int CERRAR_PREPAREDSTATEMENT = 3;
     public static final int CERRAR_ST_PS = 4;
      public static final int CERRAR_ST_PS_SP = 5;
      public static final int CERRAR_CALLABLESTATEMENT = 6;
-    private static String host = "node217901-env-4532681.j.layershift.co.uk";
+    private static String host = "localhost";
     private static String dataBase = "fotostudio2";
     private static String user = "root";
-    private static String pass = "aXCiUbgR8C";
+    private static String pass = "";
     
     public static void conectar()
      {
