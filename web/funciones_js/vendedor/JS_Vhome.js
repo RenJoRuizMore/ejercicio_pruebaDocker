@@ -94,73 +94,77 @@ $(document).ready(function () {
         addpro();
     });
     
-    $("#txtcantidad").keydown(function (e) {
-        if (e.keyCode === 13) {
-            addpro();
-        }
-    });
+    
+    // a darle enter para agregar en el 
+//    $("#txtcantidad").keydown(function (e) {
+//        if (e.keyCode === 13) {
+//            addpro();
+//        }
+//    });
    
     // ===== AUTOCOMPLETE INPUT PRODUCTOS
-    $("#txt_produc").autocomplete({
-        minLength: 1,
-        source: listproduc,
-        focus: function (event, ui) {
-            $("#txt_produc").val(ui.item.label);
-            return false;
-        },
-        select: function (event, ui) {
-            $("#txt_produc").val(ui.item.label);
-            idproducto = ui.item.id;
-            catproduct = ui.item.cat;
-            nombreproduc=ui.item.label;
-            $("#txtprecio").val(ui.item.precio);
-            $("#txtstocka").val(ui.item.sa);
-            $("#txtstockm").val(ui.item.sm);
-            $("#txtcantidad").focus();
-            return false;
-        }
-    });
-    function listar_producto(str) {
-        $.ajax({
-            type: "GET",
-            data: {texto_busqueda_pro: str, allproductos: 1, productservis: 1},
-            url: 'busqueda_producto',
-            success: function (response) {//console.log("-- "+response.lista_busqueda_factura);
-                var cantidad = response.lista_busqueda_producto.length;//console.log("c"+cantidad);
-                var listaa = response.lista_busqueda_producto;
-                agregar_filas(cantidad, listaa);
-            }
-        });
-    }// agregar las filas 
-    function agregar_filas(cantidad_datos, respondar) {//alert(cantidad_datos);  
-        for (var i = 0; i < cantidad_datos; i++) {
-            var produc = respondar[i].codigo_producto + " " + respondar[i].descripcion_producto;
-            var idp = respondar[i].id_producto;
-            var preciop = respondar[i].precio_producto;
-            var stock_a = respondar[i].stock_a_producto;
-            var stock_m = respondar[i].stock_m_producto;
-            var cat = respondar[i].id_categoria;
-            listproduc.push({value: produc, label: produc, id: idp, precio: preciop, sa: stock_a, sm: stock_m, cat: cat});
-        }
-    }
-    $("#txt_produc").on("keydown", function (event) {
-        if (event.keyCode == $.ui.keyCode.LEFT || event.keyCode == $.ui.keyCode.RIGHT || event.keyCode == $.ui.keyCode.UP || event.keyCode == $.ui.keyCode.DOWN || event.keyCode == $.ui.keyCode.DELETE || event.keyCode == $.ui.keyCode.BACKSPACE)
-        {
-            idproducto = 0;
-            catproduct = 0;
-            $("#txtprecio").val("");
-            $("#txtstocka").val("");
-            $("#txtstockm").val("");
-        }
-        if (event.keyCode == $.ui.keyCode.DELETE) {
-            $("#txt_produc").val("");
-            idproducto = 0;
-            catproduct = 0;
-            $("#txtprecio").val("");
-            $("#txtstocka").val("");
-            $("#txtstockm").val("");
-        }
-    });
+//    $("#txt_produc").autocomplete({
+//        minLength: 1,
+//        source: listproduc,
+//        focus: function (event, ui) {
+//            $("#txt_produc").val(ui.item.label);
+//            return false;
+//        },
+//        select: function (event, ui) {
+//            $("#txt_produc").val(ui.item.label);
+//            idproducto = ui.item.id;
+//            catproduct = ui.item.cat;
+//            nombreproduc=ui.item.label;
+//            $("#txtprecio").val(ui.item.precio);
+//            $("#txtstocka").val(ui.item.sa);
+//            $("#txtstockm").val(ui.item.sm);
+//            $("#txtcantidad").focus();
+//            return false;
+//        }
+//    });
+    
+    
+//    function listar_producto(str) {
+//        $.ajax({
+//            type: "GET",
+//            data: {texto_busqueda_pro: str, allproductos: 1, productservis: 1},
+//            url: 'busqueda_producto',
+//            success: function (response) {//console.log("-- "+response.lista_busqueda_factura);
+//                var cantidad = response.lista_busqueda_producto.length;//console.log("c"+cantidad);
+//                var listaa = response.lista_busqueda_producto;
+//                agregar_filas(cantidad, listaa);
+//            }
+//        });
+//    }// agregar las filas 
+//    function agregar_filas(cantidad_datos, respondar) {//alert(cantidad_datos);  
+//        for (var i = 0; i < cantidad_datos; i++) {
+//            var produc = respondar[i].codigo_producto + " " + respondar[i].descripcion_producto;
+//            var idp = respondar[i].id_producto;
+//            var preciop = respondar[i].precio_producto;
+//            var stock_a = respondar[i].stock_a_producto;
+//            var stock_m = respondar[i].stock_m_producto;
+//            var cat = respondar[i].id_categoria;
+//            listproduc.push({value: produc, label: produc, id: idp, precio: preciop, sa: stock_a, sm: stock_m, cat: cat});
+//        }
+//    }
+//    $("#txt_produc").on("keydown", function (event) {
+//        if (event.keyCode == $.ui.keyCode.LEFT || event.keyCode == $.ui.keyCode.RIGHT || event.keyCode == $.ui.keyCode.UP || event.keyCode == $.ui.keyCode.DOWN || event.keyCode == $.ui.keyCode.DELETE || event.keyCode == $.ui.keyCode.BACKSPACE)
+//        {
+//            idproducto = 0;
+//            catproduct = 0;
+//            $("#txtprecio").val("");
+//            $("#txtstocka").val("");
+//            $("#txtstockm").val("");
+//        }
+//        if (event.keyCode == $.ui.keyCode.DELETE) {
+//            $("#txt_produc").val("");
+//            idproducto = 0;
+//            catproduct = 0;
+//            $("#txtprecio").val("");
+//            $("#txtstocka").val("");
+//            $("#txtstockm").val("");
+//        }
+//    });
     // ===== END AUTOCOMPLETE INPUT PRODUCTOS ===== //
 
 
@@ -322,21 +326,23 @@ $(document).ready(function () {
     }
     //--------------------------------- TMP DETALLEPEDIDO TMP ---------------------------
     // LISTAR tmp_
+    
+    //-- carga los datos del temporal -->
     function listar_tmp() {
-        $.ajax({
-            type: "GET",
-            data: {id_pedido: n_pedido},
-            url: 'listar_tmp',
-            success: function (response) {
-                // cojia y limpiaba dagtos 
-                var cantidad = response.lista_busqueda_tmp.length;//console.log("count lista_detsalida : "+cantidad);
-                lista_tmp = response.lista_busqueda_tmp;
-                agregar_filas_tmp_detfactura(cantidad, lista_tmp);
-                // click a un determinado boton                
-                traer_datos_tmp(lista_tmp);
-                del_listmp(lista_tmp);
-            }
-        });
+//        $.ajax({
+//            type: "GET",
+//            data: {id_pedido: n_pedido},
+//            url: 'listar_tmp',
+//            success: function (response) {
+//                // cojia y limpiaba dagtos 
+//                var cantidad = response.lista_busqueda_tmp.length;//console.log("count lista_detsalida : "+cantidad);
+//                lista_tmp = response.lista_busqueda_tmp;
+//                agregar_filas_tmp_detfactura(cantidad, lista_tmp);
+//                // click a un determinado boton                
+//                traer_datos_tmp(lista_tmp);
+//                del_listmp(lista_tmp);
+//            }
+//        });
     }
     // agregar las filas  TMP DETALLE SALIDA
     function agregar_filas_tmp_detfactura(cantidad_datos, respondar) {
@@ -440,34 +446,42 @@ $(document).ready(function () {
             }
         }
     }
-    function addpro_ayax() {
-        var cantidad = $('#txtcantidad').val();
-        var precio = $('#txtprecio').val();
-        cantidad = parseInt(cantidad);
-        precio = trunc(precio, 2);
-        precio = parseFloat(precio);
-        var importe = 0;
-        importe = parseFloat(importe);
-        importe = precio * cantidad;
-        importe = trunc(importe, 2);
-        $.ajax({
-            type: "POST",
-            data: {id_pedido: n_pedido, id_producto: idproducto,
-                cantidad: cantidad, importe: importe },
-            url: 'insertar_temp',
-            success: function (response) {
-                alertify.success('se inserto exitosamente');
-                listar_tmp();
-                idproducto = 0;
-                $('#txtcantidad').val("");
-                $('#txtprecio').val("");
-                $('#txtstocka').val("");
-                $('#txtstockm').val("");
-                $('#txt_produc').val("");
-                $('#txt_produc').focus();
-            }
-        });
-    }
+    
+    
+    //-- graba en la tabla temporal -->
+//    function addpro_ayax() {
+//        var cantidad = $('#txtcantidad').val();
+//        var precio = $('#txtprecio').val();
+//        cantidad = parseInt(cantidad);
+//        precio = trunc(precio, 2);
+//        precio = parseFloat(precio);
+//        var importe = 0;
+//        importe = parseFloat(importe);
+//        importe = precio * cantidad;
+//        importe = trunc(importe, 2);
+//        $.ajax({
+//            type: "POST",
+//            data: {id_pedido: n_pedido, id_producto: idproducto,
+//                cantidad: cantidad, importe: importe },
+//            url: 'insertar_temp',
+//            success: function (response) {
+//                alertify.success('se inserto exitosamente');
+//                listar_tmp();
+//                idproducto = 0;
+//                $('#txtcantidad').val("");
+//                $('#txtprecio').val("");
+//                $('#txtstocka').val("");
+//                $('#txtstockm').val("");
+//                $('#txt_produc').val("");
+//                $('#txt_produc').focus();
+//            }
+//        });
+//    }
+    
+    
+    
+    
+    // elimianr datos de la lista 
     function del_listmp(listaa_datos) {
         $('.remover_tmp').click(function () {
             var id_a_eliminar = $(this).attr('id');
@@ -634,7 +648,7 @@ $(document).ready(function () {
     function load() {
         generar_pedido();
         $("#btn_actualizar_cliente").hide();
-        listar_producto("");
+        //listar_producto("");
         listar_cliente();
         $("#txt_produc").focus();
     }

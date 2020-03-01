@@ -31,6 +31,19 @@
     
     <!-- package de crud-->
     <package name="json_almacen" namespace="/"  extends="json-default">
+        <!-- probando el json-->
+        <action name="enviar_objeto" class="Accion.almacenero.PruebaSerailizacion" method = "ver_datos_serializables" >           
+            <result type="json">
+                
+            </result>
+        </action>
+        <!-- restaurar_serialization-->
+        
+          <action name="probar_deserializacion" class="Accion.almacenero.PruebaSerailizacion" method = "probar_DesginPatter" >           
+            <result type="json">
+                
+            </result>
+        </action>
         <!-- listar los categoria--> 
         <action name="busqueda_categoria" class="Accion.almacenero.Almacen" method = "lista_filtrada_categoria" >           
             <result type="json">

@@ -5,6 +5,7 @@
  */
 package Logica_Negocio.pojos;
 
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,14 @@ import java.util.List;
  *
  * @author Rene Jose
  */
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 public class VentaSerializable implements Serializable{
     // creating tipe serializable 
     private static final long VersUI=10L;
@@ -25,8 +34,59 @@ public class VentaSerializable implements Serializable{
     private String nombre_cliente;
     private String direccion_cliente;
     private String celular;
+    private double subtotal_todo;
+    private double igv;
+    private double total_todo;
     // listado de Productos 
     private List<Producto_VentaSerializable> lst_productos_venta= new ArrayList<>();
+    // =============================== methods for class ==================================
+    public void grabar_serialization(){
+        try {
+            
+            FileOutputStream file_out= new FileOutputStream("sales.txt");
+            ObjectOutputStream out_object= new ObjectOutputStream(file_out);
+            // write obj in the txt
+            out_object.writeObject(this);
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null,"problema cpon el archivo "+ ex);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null,"problema con la serializacion "+ex);
+        }
+    };
+    
+   
+    
+    
+    
+    
+    // ===================================== get and setter  ===============================
+    
+    public double getSubtotal_todo() {
+        return subtotal_todo;
+    }
+
+    public void setSubtotal_todo(double subtotal_todo) {
+        this.subtotal_todo = subtotal_todo;
+    }
+
+    public double getIgv() {
+        return igv;
+    }
+
+    public void setIgv(double igv) {
+        this.igv = igv;
+    }
+
+    public double getTotal_todo() {
+        return total_todo;
+    }
+
+    public void setTotal_todo(double total_todo) {
+        this.total_todo = total_todo;
+    }
+    
+    
+    
     
     public String getNumero_pedido() {
         return numero_pedido;

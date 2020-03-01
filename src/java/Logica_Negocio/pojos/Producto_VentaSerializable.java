@@ -9,7 +9,8 @@ package Logica_Negocio.pojos;
  *
  * @author Rene Jose
  */
-public class Producto_VentaSerializable {
+import java.io.Serializable;
+public class Producto_VentaSerializable implements Serializable{
     private int id_producto;
     private String codigo_producto;
     private String nombre_producto;

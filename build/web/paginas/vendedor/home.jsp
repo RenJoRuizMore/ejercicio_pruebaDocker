@@ -71,7 +71,7 @@
                                         <div class="form-group col-md-6">
                                             <label >DNI / RUC:</label>
                                             <div class="input-group date" id="datetimepicker1">
-                                                <input type="text" class="form-control" id="txtdniruc"  placeholder="Buscar por DNI o RUC" maxlength="11" >
+                                                <input type="text" class="form-control" id="txtdniruc" ng-model="obj_venta.dni" placeholder="Buscar por DNI o RUC" maxlength="11" >
                                                 <span class="input-group-addon">
                                                     <span class="fa fa-search"></span>
                                                 </span>
@@ -79,7 +79,7 @@
                                         </div>    
                                         <div class="form-group col-md-6">
                                             <label >Tipo de Documento</label>
-                                            <select class="form-control" id="tipodoc">
+                                            <select class="form-control" id="tipodoc" ng-model="obj_venta.tipo_documento" >
                                                 <option value="1">Boleta</option>
                                                 <option value="2">Factura</option>
                                            </select>
@@ -88,7 +88,7 @@
                                     <div class="row">                                    
                                         <div class="form-group col-md-6">
                                             <label >Nombre:</label>
-                                            <input type="text" class="form-control" id="txtname" placeholder="Ingrese Nombre">
+                                            <input type="text" class="form-control" id="txtname" ng-model="obj_venta.nombre_cliente"  placeholder="Ingrese Nombre">
                                         </div>
                                         <div class="col-md-6" >
                                             <button style="margin-top:27px;" type="button" class="btn btn-primary" id="btn_guardar_cliente">
@@ -102,19 +102,19 @@
                                     <div class="row">                                    
                                         <div class="form-group col-md-6">
                                             <label >Dirección (opcional)</label>
-                                            <input type="text" class="form-control" id="txtdireccion" placeholder="Ingrese Direccion (opcional)">
+                                            <input type="text" class="form-control" id="txtdireccion" ng-model="obj_venta.direccion_cliente"  placeholder="Ingrese Direccion (opcional)">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label >Celular (opcional)</label>
-                                            <input type="text" class="form-control" id="txtcelular" placeholder="Ingrese Celular (opcional)">
+                                            <input type="text" class="form-control" id="txtcelular" ng-model="obj_venta.celular_cliente" placeholder="Ingrese Celular (opcional)">
                                         </div>
                                     </div>  
                                 </div>
                                 <div class="col-md-4" >
                                      <div class="pg style_two" style="border:2px solid #0a6abd;border-radius: 10px">
-                                         <h2 class="text-center">  N° DE PEDIDO:<br>  <span id="n_pedido_str" ></span>   </h2>
+                                         <h2 class="text-center">  N° DE PEDIDO:<br>  <span id="n_pedido_str" ng-model="obj_venta.numero_pedido"></span>   </h2>
                                         <hr>
-                                        <p class="text-center">Vendedor : <b><s:property value="obj_user.nombre_persona" /></b></p>
+                                        <p class="text-center">Vendedor : <b ><s:property value="obj_user.nombre_persona"  /></b></p>
                                         <h1 class="text-center text-primary" id="lbl_total"></h1>
                                      </div>
                                 </div> 
@@ -158,7 +158,7 @@
                                   <div class="col-md-1">
                                      <div class="form-group">
                                        <label >Cantidad</label>
-                                       <input type="text" class="form-control" id="txtcantidad" onKeyPress="return soloNumeros(event)" maxlength="4">
+                                       <input type="text" ng-keydown="getkey($event)" class="form-control" id="txtcantidad" onKeyPress="return soloNumeros(event)" maxlength="4">
                                      </div>
                                  </div>
                                    <div class="col-md-1">
@@ -183,27 +183,45 @@
                                             <th class="text-center">Eliminar</th>
                                         </tr>
                                     </thead>
+                                    <!-- contenido de los productos a repetir --> 
                                     <tbody id="contenido_tmp_detfactura">
-
+                                        <tr ng-model="obj_venta.products" ng-repeat = "producto in products" >
+                                          <!--  <td class="text-center" >1</td>
+                                            <td class="text-center" ng-model="product_codigo">{{producto.codigo}}</td>
+                                            <td class="text-center" ng-model="product_nombre">{{producto.nombre}}</td>
+                                            <td style="text-align:right;" ng-model="product_cantidad">{{producto.nombre}}</td> 
+                                            <td style="text-align:right;" ng-model="product_precio">{{producto.nombre}}</td> 
+                                            <td style="text-align:right;" ng-model="product_total">Total</td> 
+                                            <td><a  class="btn btn-danger btn-xs remover_tmp"  > <i class="fa  fa-remove"  ng-click="products.splice($index, 1)">eliminar</i></a></td>-->
+                                           
+                                           <td class="text-center" >1</td>
+                                            <td class="text-center" >{{producto.product_codigo}}</td>
+                                            <td class="text-center" >{{producto.product_nombre}}</td>
+                                            <td style="text-align:right;" >{{producto.product_cantidad}}</td> 
+                                            <td style="text-align:right;" >{{producto.product_precio}}</td> 
+                                            <td style="text-align:right;" >{{producto.product_total}}</td> 
+                                            <td><a  class="btn btn-danger btn-xs remover_tmp"  > <i class="fa  fa-remove"  ng-click="eliminar($index)"></i></a></td> 
+                                          
+                                        </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr style="border-top:solid 1px #eee;">
                                             <td colspan="4"  > </td>
                                             <td  style="font-weight:bold;text-align:right;">Sub Total</td>
-                                            <td  style="font-weight:bold;text-align:right;"><span id="span_total" ></span></td>
+                                            <td  style="font-weight:bold;text-align:right;"><span id="span_total" ng-model="obj_venta.sub_total" ></span></td>
                                      </tr>									 
                                      <tr style="border-top:solid 1px #eee;">
                                             <td colspan="4"  > </td>
                                             <td  style="font-weight:bold;text-align:right;"> IGV
-                                                <input type="text"  id="txt_igv_tmp" size="1" maxlength="2" style="text-align:center;" onKeyPress="return soloNumeros(event)" value="18" >
+                                                <input type="text"  id="txt_igv_tmp" size="1"   maxlength="2" style="text-align:center;" onKeyPress="return soloNumeros(event)" value="18" >
                                                 %
                                             </td>
-                                            <td  style="font-weight:bold;text-align:right;"><span id="span_igv" ></span></td>
+                                            <td  style="font-weight:bold;text-align:right;"><span id="span_igv" ng-model="obj_venta.igv" ></span></td>
                                      </tr>									 
                                      <tr style="border-top:solid 1px #eee;">
                                             <td colspan="4"  > </td>
                                             <td  style="font-weight:bold;text-align:right;"> Total</td>
-                                            <td  style="font-weight:bold;text-align:right;"><span id="span_Neto" ></span></td>
+                                            <td  style="font-weight:bold;text-align:right;"><span id="span_Neto" ng-model="obj_venta.total" ></span></td>
                                      </tr>
                                     </tfoot>
                                 </table>
